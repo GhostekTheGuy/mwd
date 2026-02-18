@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "figma": {
+      "type": "sse",
+      "url": "http://127.0.0.1:3845/mcp"
+    },
+    "TalkToFigma": {
+      "command": "bunx",
+      "args": [
+        "cursor-talk-to-figma-mcp@latest"
+      ]
+    }
+  }
+}
