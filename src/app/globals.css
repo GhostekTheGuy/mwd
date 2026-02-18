@@ -1,17 +1,17 @@
 @import "tailwindcss";
 
 :root {
-  --background: oklch(0.9940 0 0);
-  --foreground: oklch(0 0 0);
-  --card: oklch(0.9940 0 0);
-  --card-foreground: oklch(0 0 0);
-  --popover: oklch(0.9911 0 0);
-  --popover-foreground: oklch(0 0 0);
+  --background: oklch(0.9860 0.0045 340);
+  --foreground: oklch(0.1800 0.0100 340);
+  --card: oklch(0.9900 0.0035 340);
+  --card-foreground: oklch(0.1800 0.0100 340);
+  --popover: oklch(0.9880 0.0040 340);
+  --popover-foreground: oklch(0.1800 0.0100 340);
   --primary: oklch(0.6598 0.2024 345.4433);
   --primary-foreground: oklch(0.9901 0.0074 332.1174);
   --secondary: oklch(0.9619 0.0141 336.1429);
   --secondary-foreground: oklch(0.1344 0 0);
-  --muted: oklch(0.9702 0 0);
+  --muted: oklch(0.9702 0.0030 340);
   --muted-foreground: oklch(0.4386 0 0);
   --accent: oklch(0.8703 0.0470 338.3176);
   --accent-foreground: oklch(0.6598 0.2024 345.4433);

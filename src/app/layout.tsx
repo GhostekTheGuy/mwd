@@ -19,8 +19,20 @@ const ibmPlexMono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "MWD",
-  description: "MWD",
+  title: "MyMidwife – Znajdź swoją położną",
+  description:
+    "Platforma łącząca kobiety z najlepszymi położnymi w Polsce. Zweryfikowane specjalistki, czat 24/7, baza wiedzy.",
+  icons: {
+    icon: "/fav.png",
+    apple: "/fav.png",
+  },
+  openGraph: {
+    title: "MyMidwife – Znajdź swoją położną",
+    description:
+      "Platforma łącząca kobiety z najlepszymi położnymi w Polsce.",
+    images: [{ url: "/fav.png", width: 512, height: 512 }],
+    type: "website",
+  },
 };
 
 export default function RootLayout({
