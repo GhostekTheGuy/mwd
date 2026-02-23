@@ -45,7 +45,7 @@ export default function TestimonialSection() {
       <div className="mx-auto max-w-[1200px] px-[18px] lg:px-[120px]">
         {/* Heading */}
         <div className="flex flex-col">
-          <span className="w-fit rounded-full bg-secondary px-5 py-2 text-[15px] font-medium tracking-[-0.32px] text-[#363636]">
+          <span className="w-fit rounded-[9px] bg-secondary px-5 py-2 text-[15px] font-medium tracking-[-0.32px] text-[#363636]">
             Opinie
           </span>
           <h2
@@ -95,14 +95,14 @@ export default function TestimonialSection() {
           {/* Navigation */}
           <button
             onClick={prev}
-            className="absolute left-2 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/20 transition-colors hover:bg-white/30 lg:left-5 lg:h-11 lg:w-11"
+            className="absolute left-2 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-[11px] bg-white/20 transition-colors hover:bg-white/30 lg:left-5 lg:h-11 lg:w-11"
             aria-label="Poprzednia opinia"
           >
             <ChevronLeft size={20} stroke="white" />
           </button>
           <button
             onClick={next}
-            className="absolute right-2 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/20 transition-colors hover:bg-white/30 lg:right-5 lg:h-11 lg:w-11"
+            className="absolute right-2 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-[11px] bg-white/20 transition-colors hover:bg-white/30 lg:right-5 lg:h-11 lg:w-11"
             aria-label="Następna opinia"
           >
             <ChevronRight size={20} stroke="white" />

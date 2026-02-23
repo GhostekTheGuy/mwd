@@ -1,7 +1,11 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { ShieldCheck, BookOpen, Star, Search } from "lucide-react";
+import { Star, Search } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { BlurFade } from "./BlurFade";
+import { InteractiveHoverButton } from "./InteractiveHoverButton";
+import { GridPattern } from "./ui/grid-pattern";
 
 const SEARCHES = [
   {
@@ -127,81 +131,83 @@ export default function HeroSection() {
   }, []);
 
   return (
-    <section className="w-full pt-8 pb-6 lg:pt-12 lg:pb-8">
-      <div className="mx-auto max-w-[1200px] px-[18px] lg:px-[120px]">
+    <section className="relative w-full overflow-hidden pt-8 pb-6 lg:pt-12 lg:pb-8">
+      <GridPattern
+        width={36}
+        height={36}
+        squares={[
+          [4, 4],
+          [5, 1],
+          [8, 2],
+          [5, 3],
+          [5, 5],
+          [10, 10],
+          [12, 15],
+          [15, 10],
+          [10, 15],
+          [14, 12],
+        ]}
+        className={cn(
+          "fill-primary/[0.08] stroke-primary/[0.15]",
+          "[mask-image:radial-gradient(600px_circle_at_center,white,transparent)]",
+          "inset-x-0 inset-y-[-30%] h-[200%] skew-y-12"
+        )}
+      />
+      <div className="relative mx-auto max-w-[1200px] px-[18px] lg:px-[120px]">
         <div className="flex flex-col gap-8 lg:flex-row lg:gap-10">
           {/* Left Column - Text Content */}
           <div className="flex w-full flex-col justify-between lg:w-1/2 lg:py-6">
             {/* Rating Tag */}
-            <div className="flex items-center gap-3">
-              <Star size={18} fill="#e69fcd" stroke="#e69fcd" />
-              <span className="text-[17px] font-medium tracking-[-0.18px] text-muted-foreground lg:text-[19px] lg:tracking-[-0.2px]">
-                4.8 &nbsp;| &nbsp;1000+ pozytywnych opinii
-              </span>
-            </div>
+            <BlurFade delay={0.1} direction="up" blur="4px">
+              <div className="flex items-center gap-3">
+                <Star size={18} fill="#e69fcd" stroke="#e69fcd" />
+                <span className="text-[17px] font-medium tracking-[-0.18px] text-muted-foreground lg:text-[19px] lg:tracking-[-0.2px]">
+                  4.8 &nbsp;| &nbsp;1000+ pozytywnych opinii
+                </span>
+              </div>
+            </BlurFade>
 
             {/* Heading */}
-            <div className="mt-8 lg:mt-10">
-              <h1
-                className="text-[34px] font-medium leading-[42px] tracking-[-1.5px] text-[#363636] lg:text-[44px] lg:leading-[62px] lg:tracking-[-2.2px]"
-                style={{ wordSpacing: "4px" }}
-              >
-                Bezpieczeństwo{" "}
-                <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-secondary align-[3px] lg:h-11 lg:w-11 lg:align-[4px]">
-                  <ShieldCheck
-                    size={18}
-                    stroke="#363636"
-                    strokeWidth={2.5}
-                    className="lg:hidden"
-                  />
-                  <ShieldCheck
-                    size={22}
-                    stroke="#363636"
-                    strokeWidth={2.5}
-                    className="hidden lg:block"
-                  />
-                </span>
-                <br />
-                wiedza{" "}
-                <span className="inline-flex h-9 w-9 items-center justify-center rounded-2xl bg-secondary align-[3px] lg:h-11 lg:w-11 lg:align-[4px]">
-                  <BookOpen
-                    size={18}
-                    stroke="#363636"
-                    strokeWidth={2.5}
-                    className="lg:hidden"
-                  />
-                  <BookOpen
-                    size={22}
-                    stroke="#363636"
-                    strokeWidth={2.5}
-                    className="hidden lg:block"
-                  />
-                </span>{" "}
-                i wsparcie
-                <br />
-                w jednej aplikacji
-              </h1>
-            </div>
+            <BlurFade delay={0.25} direction="up" blur="4px">
+              <div className="mt-8 lg:mt-10">
+                <h1
+                  className="text-[34px] font-medium leading-[42px] tracking-[-1.5px] text-[#363636] lg:text-[54px] lg:leading-[68px] lg:tracking-[-2.5px]"
+                  style={{ wordSpacing: "4px" }}
+                >
+                  Bezpieczeństwo
+                  <br />
+                  wiedza i wsparcie
+                  <br />
+                  <span className="text-primary">w jednej aplikacji</span>
+                </h1>
+              </div>
+            </BlurFade>
 
-            {/* Buttons */}
-            <div className="mt-8 flex items-center gap-4 lg:mt-10">
-              <a
-                href="#"
-                className="flex h-[50px] items-center justify-center rounded-full bg-primary px-6 text-[17px] font-medium tracking-[-0.36px] text-white lg:px-8"
-              >
-                Znajdź położną
-              </a>
-              <a
-                href="#"
-                className="flex h-[50px] items-center justify-center rounded-full border border-black/25 px-6 text-[17px] font-medium tracking-[-0.36px] text-accent lg:px-8"
-              >
-                Dowiedz się więcej
-              </a>
-            </div>
+            {/* Search CTA */}
+            <BlurFade delay={0.45} direction="up" blur="4px">
+              <div className="mt-8 flex items-center gap-2 lg:mt-10">
+                <div className="relative flex-1">
+                  <Search
+                    size={16}
+                    stroke="#999"
+                    strokeWidth={1.8}
+                    className="absolute left-4 top-1/2 -translate-y-1/2"
+                  />
+                  <input
+                    type="text"
+                    placeholder="specjalizacja, miasto lub nazwisko..."
+                    className="h-[50px] w-full rounded-[11px] border border-border bg-white pl-10 pr-5 text-[15px] text-[#363636] outline-none transition-colors duration-300 placeholder:text-[#999] focus:border-[#f0c6dd]"
+                  />
+                </div>
+                <InteractiveHoverButton className="flex-shrink-0">
+                  Znajdź położną
+                </InteractiveHoverButton>
+              </div>
+            </BlurFade>
           </div>
 
           {/* Right Column - Image Content */}
-          <div className="relative w-full lg:w-1/2">
+          <BlurFade delay={0.3} direction="up" blur="4px" className="relative w-full lg:w-1/2">
             <div className="relative">
               <img
                 src="/hero_png.png"
@@ -256,7 +262,7 @@ export default function HeroSection() {
                 })}
               </div>
             </div>
-          </div>
+          </BlurFade>
         </div>
       </div>
     </section>

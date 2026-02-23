@@ -1,4 +1,5 @@
 import { CheckCircle } from "lucide-react";
+import { InteractiveHoverButton } from "./InteractiveHoverButton";
 
 const forPatients = {
   tag: "Dla Pacjentek",
@@ -69,7 +70,7 @@ function TextContent({
 }) {
   return (
     <div className="flex w-full flex-col justify-center lg:w-1/2">
-      <span className="w-fit rounded-full bg-secondary px-5 py-2 text-sm font-medium text-[#363636]">
+      <span className="w-fit rounded-[9px] bg-secondary px-5 py-2 text-sm font-medium text-[#363636]">
         {tag}
       </span>
       <h2
@@ -79,12 +80,9 @@ function TextContent({
         {heading}
       </h2>
       <FeatureList features={features} />
-      <a
-        href="#"
-        className="mt-6 flex h-[50px] w-fit items-center justify-center rounded-full bg-primary px-8 text-[17px] font-medium tracking-[-0.36px] text-white lg:mt-8"
-      >
+      <InteractiveHoverButton className="mt-6 lg:mt-8">
         {cta}
-      </a>
+      </InteractiveHoverButton>
     </div>
   );
 }

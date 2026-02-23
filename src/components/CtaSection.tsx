@@ -1,3 +1,5 @@
+import { InteractiveHoverButton } from "./InteractiveHoverButton";
+
 export default function CtaSection() {
   return (
     <section className="w-full py-10 lg:py-16">
@@ -14,12 +16,9 @@ export default function CtaSection() {
             Zadbaj o siebie i swojego maluszka z MyMidwife
           </h2>
 
-          <a
-            href="#"
-            className="mt-8 inline-flex h-[50px] items-center justify-center rounded-full bg-primary px-8 text-[17px] font-medium tracking-[-0.36px] text-white lg:mt-10"
-          >
+          <InteractiveHoverButton className="mt-8 lg:mt-10">
             Zacznij teraz
-          </a>
+          </InteractiveHoverButton>
         </div>
       </div>
     </section>

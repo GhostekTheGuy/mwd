@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pnpm install:*)",
+      "Bash(pnpm build:*)",
+      "Bash(pnpm add:*)",
+      "Bash(pnpm dlx:*)",
+      "Bash(del \"G:\\\\Obrazy\\\\2k26\\\\0important\\\\0mymidwife\\\\mwd\\\\src\\\\components\\\\GradualBlur.tsx\")",
+      "Bash(pnpm remove:*)"
+    ]
+  },
+  "enableAllProjectMcpServers": true,
+  "enabledMcpjsonServers": [
+    "figma",
+    "TalkToFigma"
+  ]
+}

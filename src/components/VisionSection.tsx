@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { CheckCircle } from "lucide-react";
+import { InteractiveHoverButton } from "./InteractiveHoverButton";
 
 const features = [
   {
@@ -51,7 +52,7 @@ export default function VisionSection() {
         <div className="flex flex-col gap-8 lg:flex-row lg:gap-16">
           {/* Left Column - Sticky on desktop */}
           <div className="flex w-full flex-col lg:sticky lg:top-24 lg:w-5/12 lg:self-start">
-            <span className="w-fit rounded-full bg-secondary px-5 py-2 text-sm font-medium text-[#363636]">
+            <span className="w-fit rounded-[9px] bg-secondary px-5 py-2 text-sm font-medium text-[#363636]">
               Nasza misja
             </span>
 
@@ -66,12 +67,9 @@ export default function VisionSection() {
               ekspertkami
             </h2>
 
-            <a
-              href="#"
-              className="mt-8 flex h-[50px] w-fit items-center justify-center rounded-full bg-primary px-8 text-[17px] font-medium tracking-[-0.36px] text-white lg:mt-10"
-            >
+            <InteractiveHoverButton className="mt-8 lg:mt-10">
               O nas
-            </a>
+            </InteractiveHoverButton>
           </div>
 
           {/* Right Column - Cards */}

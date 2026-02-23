@@ -1,5 +1,7 @@
 "use client";
 
+import { InteractiveHoverButton } from "./InteractiveHoverButton";
+
 const footerLinks = [
   {
     title: "Nawigacja",
@@ -44,9 +46,9 @@ export default function Footer() {
                 placeholder="adres@email.com"
                 className="h-14 flex-1 rounded-[14px] bg-muted px-8 text-[16px] text-[#292929] outline-none placeholder:text-[#999]"
               />
-              <button className="h-14 rounded-[14px] bg-primary px-6 text-[16px] font-medium text-white lg:px-8">
+              <InteractiveHoverButton>
                 Zapisz
-              </button>
+              </InteractiveHoverButton>
             </div>
             <p className="mt-3 text-[15px] font-medium tracking-[-0.36px] text-[#858585] lg:text-[17px]">
               Zapisując się akceptujesz regulamin i politykę prywatności

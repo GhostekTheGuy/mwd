@@ -22,7 +22,7 @@ export default function TeamSection() {
       <div className="mx-auto max-w-[1200px] px-[18px] lg:px-[120px]">
         {/* Heading */}
         <div className="flex flex-col items-center">
-          <span className="w-fit rounded-full bg-secondary px-5 py-2 text-[15px] font-medium tracking-[-0.3px] text-[#363636]">
+          <span className="w-fit rounded-[9px] bg-secondary px-5 py-2 text-[15px] font-medium tracking-[-0.3px] text-[#363636]">
             Położne
           </span>
           <h2
