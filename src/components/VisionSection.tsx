@@ -1,8 +1,9 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 import { CheckCircle } from "lucide-react";
 import { InteractiveHoverButton } from "./InteractiveHoverButton";
+import { motion, useScroll, useTransform } from "motion/react";
 
 const features = [
   {
@@ -22,36 +23,64 @@ const features = [
   },
 ];
 
-export default function VisionSection() {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
-
-  useEffect(() => {
-    const observers: IntersectionObserver[] = [];
-
-    cardRefs.current.forEach((card, index) => {
-      if (!card) return;
-      const observer = new IntersectionObserver(
-        ([entry]) => {
-          if (entry.isIntersecting) {
-            setActiveIndex(index);
-          }
-        },
-        { threshold: 0.6, rootMargin: "-20% 0px -20% 0px" }
-      );
-      observer.observe(card);
-      observers.push(observer);
-    });
-
-    return () => observers.forEach((o) => o.disconnect());
-  }, []);
+function StickyCard({
+  i,
+  title,
+  description,
+  progress,
+  range,
+  targetScale,
+}: {
+  i: number;
+  title: string;
+  description: string;
+  progress: ReturnType<typeof useScroll>["scrollYProgress"];
+  range: [number, number];
+  targetScale: number;
+}) {
+  const scale = useTransform(progress, range, [1, targetScale]);
 
   return (
-    <section className="w-full py-10 lg:py-16">
-      <div className="mx-auto max-w-[1200px] px-[18px] lg:px-[120px]">
+    <div className="sticky top-[30vh] flex items-center justify-center">
+      <motion.div
+        style={{
+          scale,
+          top: `${i * 24}px`,
+        }}
+        className="relative w-full origin-top rounded-[20px] border border-border bg-background p-6 shadow-sm lg:p-8"
+      >
+        <div className="flex items-center gap-3">
+          <span className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full bg-secondary">
+            <CheckCircle size={20} stroke="#e352ad" strokeWidth={2} />
+          </span>
+          <h3 className="text-[20px] font-medium tracking-[-0.5px] text-[#363636] lg:text-[22px]">
+            {title}
+          </h3>
+        </div>
+        <p className="mt-3 text-[15px] leading-[24px] tracking-[-0.2px] text-muted-foreground lg:mt-4 lg:text-[17px] lg:leading-[28px]">
+          {description}
+        </p>
+      </motion.div>
+    </div>
+  );
+}
+
+export default function VisionSection() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end end"],
+  });
+
+  return (
+    <section className="w-full">
+      <div
+        ref={containerRef}
+        className="relative mx-auto max-w-[1200px] px-[18px] pb-[40vh] pt-10 lg:px-[120px] lg:pt-16"
+      >
         <div className="flex flex-col gap-8 lg:flex-row lg:gap-16">
-          {/* Left Column - Sticky on desktop */}
-          <div className="flex w-full flex-col lg:sticky lg:top-24 lg:w-5/12 lg:self-start">
+          {/* Left Column - CSS sticky works fine with Lenis */}
+          <div className="flex w-full flex-col lg:sticky lg:top-[30vh] lg:w-5/12 lg:self-start">
             <span className="w-fit rounded-[9px] bg-secondary px-5 py-2 text-sm font-medium text-[#363636]">
               Nasza misja
             </span>
@@ -72,35 +101,25 @@ export default function VisionSection() {
             </InteractiveHoverButton>
           </div>
 
-          {/* Right Column - Cards */}
-          <div className="flex w-full flex-col gap-4 lg:w-7/12 lg:gap-5">
-            {features.map((feature, index) => (
-              <div
-                key={feature.title}
-                ref={(el) => { cardRefs.current[index] = el; }}
-                className={`rounded-[20px] border p-6 transition-colors duration-300 lg:p-8 ${
-                  activeIndex === index
-                    ? "border-primary"
-                    : "border-border"
-                }`}
-              >
-                <div className="flex items-center gap-3">
-                  <span className="flex h-9 w-9 items-center justify-center rounded-full bg-secondary">
-                    <CheckCircle
-                      size={20}
-                      stroke="#e352ad"
-                      strokeWidth={2}
-                    />
-                  </span>
-                  <h3 className="text-[20px] font-medium tracking-[-0.5px] text-[#363636] lg:text-[22px]">
-                    {feature.title}
-                  </h3>
-                </div>
-                <p className="mt-3 text-[15px] leading-[24px] tracking-[-0.2px] text-muted-foreground lg:mt-4 lg:text-[17px] lg:leading-[28px]">
-                  {feature.description}
-                </p>
-              </div>
-            ))}
+          {/* Right Column - Card Stack */}
+          <div className="flex w-full flex-col lg:w-7/12">
+            {features.map((feature, i) => {
+              const targetScale = Math.max(
+                0.85,
+                1 - (features.length - i - 1) * 0.05
+              );
+              return (
+                <StickyCard
+                  key={feature.title}
+                  i={i}
+                  title={feature.title}
+                  description={feature.description}
+                  progress={scrollYProgress}
+                  range={[i * (1 / features.length), 1]}
+                  targetScale={targetScale}
+                />
+              );
+            })}
           </div>
         </div>
       </div>

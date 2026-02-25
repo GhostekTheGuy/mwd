@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter_Tight, Lora, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
+import SmoothScroll from "@/components/smooth-scroll";
 
 const interTight = Inter_Tight({
   variable: "--font-sans",
@@ -45,7 +46,7 @@ export default function RootLayout({
       <body
         className={`${interTight.variable} ${lora.variable} ${ibmPlexMono.variable} antialiased`}
       >
-        {children}
+        <SmoothScroll>{children}</SmoothScroll>
       </body>
     </html>
   );

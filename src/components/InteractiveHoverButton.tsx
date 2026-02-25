@@ -17,9 +17,9 @@ export function InteractiveHoverButton({
 
   const variants = {
     primary:
-      "bg-primary text-white border border-primary hover:bg-transparent hover:text-primary",
+      "bg-primary text-white border border-primary hover:bg-background hover:text-primary",
     outline:
-      "bg-transparent text-primary border border-primary hover:bg-primary hover:text-white",
+      "bg-transparent text-primary border border-primary hover:bg-background hover:text-primary",
   };
 
   const sizes = {

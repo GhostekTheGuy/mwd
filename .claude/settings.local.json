@@ -7,7 +7,12 @@
       "Bash(pnpm dlx:*)",
       "Bash(del \"G:\\\\Obrazy\\\\2k26\\\\0important\\\\0mymidwife\\\\mwd\\\\src\\\\components\\\\GradualBlur.tsx\")",
       "Bash(pnpm remove:*)",
-      "Bash(npm install:*)"
+      "Bash(npm install:*)",
+      "WebFetch(domain:stackoverflow.com)",
+      "WebFetch(domain:gsap.com)",
+      "Bash(bun add:*)",
+      "Bash(bun build:*)",
+      "Bash(bun run:*)"
     ]
   },
   "enableAllProjectMcpServers": true,
