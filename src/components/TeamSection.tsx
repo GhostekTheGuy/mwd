@@ -3,16 +3,19 @@ const midwives = [
     name: "Anna Kowalska",
     specialty: "Położna środowiskowa",
     bgColor: "#f5e6f0",
+    image: "/stock/1.png",
   },
   {
     name: "Maria Nowak",
     specialty: "Położna laktacyjna",
     bgColor: "#e6eef5",
+    image: "/stock/2.png",
   },
   {
     name: "Katarzyna Wiśniewska",
     specialty: "Edukatorka prenatalna",
     bgColor: "#f0e6f5",
+    image: "/stock/3.png",
   },
 ];
 
@@ -51,7 +54,7 @@ export default function TeamSection() {
 
               {/* Portrait image */}
               <img
-                src="/hero_png.png"
+                src={midwife.image}
                 alt={midwife.name}
                 className="absolute inset-0 h-full w-full rounded-[26px] object-cover object-top"
               />
