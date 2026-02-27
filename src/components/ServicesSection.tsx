@@ -119,7 +119,7 @@ export default function ServicesSection() {
   }, []);
 
   return (
-    <section className="w-full py-10 lg:py-16">
+    <section id="baza-wiedzy" className="w-full py-10 lg:py-16">
       <style>{`
         .svc-header {
           opacity: 0;

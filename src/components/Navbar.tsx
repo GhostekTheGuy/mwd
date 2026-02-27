@@ -88,19 +88,19 @@ export default function Navbar() {
                 {/* Nav links - Desktop */}
                 <div className="hidden items-center gap-8 lg:flex">
                   <a
-                    href="#"
+                    href="#dla-pacjentek"
                     className="text-[14px] font-medium tracking-[-0.2px] text-muted-foreground transition-colors duration-300 hover:text-[#363636]"
                   >
                     Dla pacjentek
                   </a>
                   <a
-                    href="#"
+                    href="#dla-poloznych"
                     className="text-[14px] font-medium tracking-[-0.2px] text-muted-foreground transition-colors duration-300 hover:text-[#363636]"
                   >
                     Dla położnych
                   </a>
                   <a
-                    href="#"
+                    href="#baza-wiedzy"
                     className="text-[14px] font-medium tracking-[-0.2px] text-muted-foreground transition-colors duration-300 hover:text-[#363636]"
                   >
                     Baza wiedzy
@@ -151,19 +151,22 @@ export default function Navbar() {
                     <div className="border-t border-border/30 pb-5 pt-4">
                       <div className="flex flex-col gap-3">
                         <a
-                          href="#"
+                          href="#dla-pacjentek"
+                          onClick={() => setMenuOpen(false)}
                           className="text-[16px] font-medium tracking-[-0.3px] text-[#363636]"
                         >
                           Dla pacjentek
                         </a>
                         <a
-                          href="#"
+                          href="#dla-poloznych"
+                          onClick={() => setMenuOpen(false)}
                           className="text-[16px] font-medium tracking-[-0.3px] text-[#363636]"
                         >
                           Dla położnych
                         </a>
                         <a
-                          href="#"
+                          href="#baza-wiedzy"
+                          onClick={() => setMenuOpen(false)}
                           className="text-[16px] font-medium tracking-[-0.3px] text-[#363636]"
                         >
                           Baza wiedzy

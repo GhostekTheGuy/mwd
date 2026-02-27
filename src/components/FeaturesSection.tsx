@@ -921,7 +921,7 @@ export default function FeaturesSection() {
     <section className="w-full py-10 lg:py-16">
       <div className="mx-auto flex max-w-[1200px] flex-col gap-8 px-[18px] lg:gap-12 lg:px-[120px]">
         {/* Wrapper 1 - Dla Pacjentek */}
-        <div className="flex flex-col gap-8 rounded-[32px] bg-muted p-6 lg:flex-row lg:gap-10 lg:rounded-[28px] lg:border lg:border-border lg:bg-transparent lg:p-10">
+        <div id="dla-pacjentek" className="flex flex-col gap-8 rounded-[32px] bg-muted p-6 lg:flex-row lg:gap-10 lg:rounded-[28px] lg:border lg:border-border lg:bg-transparent lg:p-10">
           <TextContent
             tag={forPatients.tag}
             heading={forPatients.heading}
@@ -932,7 +932,7 @@ export default function FeaturesSection() {
         </div>
 
         {/* Wrapper 2 - Dla Położnych */}
-        <div className="flex flex-col-reverse gap-8 rounded-[32px] bg-muted p-6 lg:flex-row lg:gap-10 lg:rounded-[28px] lg:border lg:border-border lg:bg-transparent lg:p-10">
+        <div id="dla-poloznych" className="flex flex-col-reverse gap-8 rounded-[32px] bg-muted p-6 lg:flex-row lg:gap-10 lg:rounded-[28px] lg:border lg:border-border lg:bg-transparent lg:p-10">
           <MidwifeDashboard />
           <TextContent
             tag={forMidwives.tag}
