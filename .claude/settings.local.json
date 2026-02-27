@@ -12,7 +12,8 @@
       "WebFetch(domain:gsap.com)",
       "Bash(bun add:*)",
       "Bash(bun build:*)",
-      "Bash(bun run:*)"
+      "Bash(bun run:*)",
+      "Bash(npx next:*)"
     ]
   },
   "enableAllProjectMcpServers": true,

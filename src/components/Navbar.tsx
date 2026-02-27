@@ -1,16 +1,27 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import { useRouter } from "next/navigation";
 import { Menu, X, Search } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import { InteractiveHoverButton } from "./InteractiveHoverButton";
 
 export default function Navbar() {
+  const router = useRouter();
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
   const [mounted, setMounted] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const searchInputRef = useRef<HTMLInputElement>(null);
+
+  const handleSearch = (query?: string) => {
+    const q = (query ?? searchQuery).trim();
+    const url = q ? `/znajdz-polozna?q=${encodeURIComponent(q)}` : "/znajdz-polozna";
+    setSearchOpen(false);
+    setSearchQuery("");
+    router.push(url);
+  };
 
   useEffect(() => {
     const t = requestAnimationFrame(() => setMounted(true));
@@ -176,10 +187,14 @@ export default function Navbar() {
                           <div className="flex items-center gap-2">
                             <input
                               type="text"
+                              value={searchQuery}
+                              onChange={(e) => setSearchQuery(e.target.value)}
+                              onKeyDown={(e) => { if (e.key === "Enter") { handleSearch(); setMenuOpen(false); } }}
                               placeholder="specjalizacja, miasto lub nazwisko..."
                               className="h-[46px] flex-1 rounded-[11px] border border-border bg-white px-5 text-[15px] text-[#363636] outline-none placeholder:text-[#999]"
                             />
                             <button
+                              onClick={() => { handleSearch(); setMenuOpen(false); }}
                               className="flex h-[46px] w-[46px] flex-shrink-0 items-center justify-center rounded-[11px] bg-primary"
                               aria-label="Szukaj"
                             >
@@ -236,11 +251,17 @@ export default function Navbar() {
                         <input
                           ref={searchInputRef}
                           type="text"
+                          value={searchQuery}
+                          onChange={(e) => setSearchQuery(e.target.value)}
+                          onKeyDown={(e) => e.key === "Enter" && handleSearch()}
                           placeholder="specjalizacja, miasto lub nazwisko..."
                           className="h-[44px] w-full rounded-[11px] border border-border bg-white pl-10 pr-5 text-[14px] text-[#363636] outline-none transition-colors duration-300 placeholder:text-[#999] focus:border-[#f0c6dd]"
                         />
                       </div>
-                      <button className="flex h-[44px] items-center gap-2 rounded-[11px] bg-primary px-6 text-[13px] font-medium text-white transition-colors duration-300 hover:bg-primary/90">
+                      <button
+                        onClick={() => handleSearch()}
+                        className="flex h-[44px] items-center gap-2 rounded-[11px] bg-primary px-6 text-[13px] font-medium text-white transition-colors duration-300 hover:bg-primary/90"
+                      >
                         <Search size={14} />
                         Szukaj
                       </button>
@@ -253,6 +274,7 @@ export default function Navbar() {
                         (tag) => (
                           <button
                             key={tag}
+                            onClick={() => handleSearch(tag)}
                             className="rounded-[8px] bg-secondary px-3 py-1 text-[12px] font-medium text-[#555] transition-colors duration-200 hover:bg-[#f0c6dd]/30"
                           >
                             {tag}
