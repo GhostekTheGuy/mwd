@@ -335,7 +335,7 @@ export default function MidwifeSearch() {
                                 className={`rounded-[10px] border px-3.5 py-2 text-[13px] font-medium transition-all duration-200 ${
                                   selectedSpecializations.includes(item)
                                     ? "border-primary bg-primary text-white"
-                                    : "border-border bg-muted/50 text-muted-foreground hover:border-primary/30 hover:bg-primary/5"
+                                    : "border-border bg-muted text-muted-foreground hover:border-primary/30 hover:bg-primary/5"
                                 }`}
                               >
                                 {item}
@@ -419,14 +419,14 @@ export default function MidwifeSearch() {
                             className={`flex items-center gap-3 rounded-[12px] border p-3.5 text-left transition-all duration-200 ${
                               isSelected
                                 ? "border-primary/30 bg-primary/5"
-                                : "border-border bg-muted/30 hover:border-primary/20 hover:bg-primary/5"
+                                : "border-border bg-muted/60 hover:border-primary/20 hover:bg-primary/5"
                             }`}
                           >
                             <div
                               className={`flex h-9 w-9 items-center justify-center rounded-[10px] ${
                                 isSelected
                                   ? "bg-primary/10"
-                                  : "bg-secondary/60"
+                                  : "bg-secondary"
                               }`}
                             >
                               <Icon
@@ -594,7 +594,7 @@ export default function MidwifeSearch() {
                               className={`flex items-center gap-3 rounded-[12px] border p-3 text-left transition-all duration-200 ${
                                 isSelected
                                   ? "border-primary/30 bg-primary/5"
-                                  : "border-border bg-muted/30"
+                                  : "border-border bg-muted/60"
                               }`}
                             >
                               <Icon
@@ -636,7 +636,7 @@ export default function MidwifeSearch() {
                                   className={`rounded-[10px] border px-3 py-2 text-[13px] font-medium transition-all duration-200 ${
                                     selectedSpecializations.includes(item)
                                       ? "border-primary bg-primary text-white"
-                                      : "border-border bg-muted/50 text-muted-foreground"
+                                      : "border-border bg-muted text-muted-foreground"
                                   }`}
                                 >
                                   {item}
@@ -1079,7 +1079,7 @@ function QuizModal({
                       >
                         <div
                           className={`flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-[12px] transition-colors duration-200 ${
-                            selected ? "bg-primary/10" : "bg-secondary/50"
+                            selected ? "bg-primary/10" : "bg-secondary"
                           }`}
                         >
                           <Icon
@@ -1222,7 +1222,7 @@ function QuizModal({
                       >
                         <div
                           className={`flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-[10px] ${
-                            selected ? "bg-primary/10" : "bg-secondary/50"
+                            selected ? "bg-primary/10" : "bg-secondary"
                           }`}
                         >
                           <Icon
@@ -1309,7 +1309,7 @@ function MidwifeCard({
         {/* Heart */}
         <button
           onClick={(e) => { e.preventDefault(); e.stopPropagation(); setLiked(!liked); }}
-          className="absolute right-4 top-4 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-muted/60 transition-all duration-300 hover:bg-secondary"
+          className="absolute right-4 top-4 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-muted transition-all duration-300 hover:bg-secondary"
           aria-label="Polub"
         >
           <Heart
@@ -1368,7 +1368,7 @@ function MidwifeCard({
           {midwife.tags.slice(0, 4).map((tag) => (
             <span
               key={tag}
-              className="rounded-[8px] border border-border bg-muted/50 px-2.5 py-1 text-[12px] font-medium text-muted-foreground transition-colors duration-200 group-hover/card:border-primary/10 group-hover/card:bg-primary/[0.03]"
+              className="rounded-[8px] border border-border bg-muted px-2.5 py-1 text-[12px] font-medium text-muted-foreground transition-colors duration-200 group-hover/card:border-primary/10 group-hover/card:bg-primary/[0.03]"
             >
               {tag}
             </span>

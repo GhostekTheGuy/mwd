@@ -5,9 +5,11 @@ import { useRouter } from "next/navigation";
 import { Menu, X, Search } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import { InteractiveHoverButton } from "./InteractiveHoverButton";
+import { useRegistrationModal } from "./registration/RegistrationModalContext";
 
 export default function Navbar() {
   const router = useRouter();
+  const { openRegistration } = useRegistrationModal();
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
@@ -100,19 +102,19 @@ export default function Navbar() {
                 <div className="hidden items-center gap-8 lg:flex">
                   <a
                     href="#dla-pacjentek"
-                    className="text-[14px] font-medium tracking-[-0.2px] text-muted-foreground transition-colors duration-300 hover:text-[#363636]"
+                    className="text-[14px] font-medium tracking-[-0.2px] text-muted-foreground transition-colors duration-300 hover:text-foreground"
                   >
                     Dla pacjentek
                   </a>
                   <a
                     href="#dla-poloznych"
-                    className="text-[14px] font-medium tracking-[-0.2px] text-muted-foreground transition-colors duration-300 hover:text-[#363636]"
+                    className="text-[14px] font-medium tracking-[-0.2px] text-muted-foreground transition-colors duration-300 hover:text-foreground"
                   >
                     Dla położnych
                   </a>
                   <a
                     href="#baza-wiedzy"
-                    className="text-[14px] font-medium tracking-[-0.2px] text-muted-foreground transition-colors duration-300 hover:text-[#363636]"
+                    className="text-[14px] font-medium tracking-[-0.2px] text-muted-foreground transition-colors duration-300 hover:text-foreground"
                   >
                     Baza wiedzy
                   </a>
@@ -125,9 +127,9 @@ export default function Navbar() {
                     className="flex h-[36px] w-[36px] items-center justify-center rounded-[10px] border border-border transition-colors duration-300 hover:border-[#f0c6dd] hover:bg-white"
                     aria-label="Szukaj"
                   >
-                    <Search size={15} stroke="#787878" strokeWidth={1.8} />
+                    <Search size={15} className="text-muted-foreground" strokeWidth={1.8} />
                   </button>
-                  <InteractiveHoverButton size="sm">
+                  <InteractiveHoverButton size="sm" onClick={openRegistration}>
                     Dołącz teraz
                   </InteractiveHoverButton>
                 </div>
@@ -139,9 +141,9 @@ export default function Navbar() {
                   onClick={() => setMenuOpen(!menuOpen)}
                 >
                   {menuOpen ? (
-                    <X size={20} stroke="#363636" />
+                    <X size={20} className="text-foreground" />
                   ) : (
-                    <Menu size={20} stroke="#363636" />
+                    <Menu size={20} className="text-foreground" />
                   )}
                 </button>
               </motion.div>
@@ -164,21 +166,21 @@ export default function Navbar() {
                         <a
                           href="#dla-pacjentek"
                           onClick={() => setMenuOpen(false)}
-                          className="text-[16px] font-medium tracking-[-0.3px] text-[#363636]"
+                          className="text-[16px] font-medium tracking-[-0.3px] text-foreground"
                         >
                           Dla pacjentek
                         </a>
                         <a
                           href="#dla-poloznych"
                           onClick={() => setMenuOpen(false)}
-                          className="text-[16px] font-medium tracking-[-0.3px] text-[#363636]"
+                          className="text-[16px] font-medium tracking-[-0.3px] text-foreground"
                         >
                           Dla położnych
                         </a>
                         <a
                           href="#baza-wiedzy"
                           onClick={() => setMenuOpen(false)}
-                          className="text-[16px] font-medium tracking-[-0.3px] text-[#363636]"
+                          className="text-[16px] font-medium tracking-[-0.3px] text-foreground"
                         >
                           Baza wiedzy
                         </a>
@@ -191,22 +193,22 @@ export default function Navbar() {
                               onChange={(e) => setSearchQuery(e.target.value)}
                               onKeyDown={(e) => { if (e.key === "Enter") { handleSearch(); setMenuOpen(false); } }}
                               placeholder="specjalizacja, miasto lub nazwisko..."
-                              className="h-[46px] flex-1 rounded-[11px] border border-border bg-white px-5 text-[15px] text-[#363636] outline-none placeholder:text-[#999]"
+                              className="h-[46px] flex-1 rounded-[11px] border border-border bg-white px-5 text-[15px] text-foreground outline-none placeholder:text-muted-foreground/60"
                             />
                             <button
                               onClick={() => { handleSearch(); setMenuOpen(false); }}
                               className="flex h-[46px] w-[46px] flex-shrink-0 items-center justify-center rounded-[11px] bg-primary"
                               aria-label="Szukaj"
                             >
-                              <Search size={18} stroke="white" />
+                              <Search size={18} className="text-white" />
                             </button>
                           </div>
-                          <a
-                            href="#"
+                          <button
+                            onClick={() => { openRegistration(); setMenuOpen(false); }}
                             className="flex h-[46px] w-full items-center justify-center rounded-[11px] bg-primary text-[15px] font-medium tracking-[-0.2px] text-white"
                           >
                             Dołącz teraz
-                          </a>
+                          </button>
                         </div>
                       </div>
                     </div>
@@ -255,7 +257,7 @@ export default function Navbar() {
                           onChange={(e) => setSearchQuery(e.target.value)}
                           onKeyDown={(e) => e.key === "Enter" && handleSearch()}
                           placeholder="specjalizacja, miasto lub nazwisko..."
-                          className="h-[44px] w-full rounded-[11px] border border-border bg-white pl-10 pr-5 text-[14px] text-[#363636] outline-none transition-colors duration-300 placeholder:text-[#999] focus:border-[#f0c6dd]"
+                          className="h-[44px] w-full rounded-[11px] border border-border bg-white pl-10 pr-5 text-[14px] text-foreground outline-none transition-colors duration-300 placeholder:text-muted-foreground/60 focus:border-[#f0c6dd]"
                         />
                       </div>
                       <button
@@ -275,7 +277,7 @@ export default function Navbar() {
                           <button
                             key={tag}
                             onClick={() => handleSearch(tag)}
-                            className="rounded-[8px] bg-secondary px-3 py-1 text-[12px] font-medium text-[#555] transition-colors duration-200 hover:bg-[#f0c6dd]/30"
+                            className="rounded-[8px] bg-secondary px-3 py-1 text-[12px] font-medium text-muted-foreground transition-colors duration-200 hover:bg-[#f0c6dd]/30"
                           >
                             {tag}
                           </button>

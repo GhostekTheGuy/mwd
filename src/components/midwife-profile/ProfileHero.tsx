@@ -76,26 +76,21 @@ export default function ProfileHero({ midwife }: { midwife: MidwifeProfile }) {
             {/* Badges */}
             <div className="mt-3 flex flex-wrap gap-2">
               {midwife.online && (
-                <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-3 py-1.5 text-[12px] font-medium text-emerald-700">
+                <span className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-3 py-1.5 text-[12px] font-medium text-muted-foreground">
                   <Video className="h-3.5 w-3.5" />
                   Online
                 </span>
               )}
               {midwife.homeVisit && (
-                <span className="inline-flex items-center gap-1.5 rounded-full bg-blue-50 px-3 py-1.5 text-[12px] font-medium text-blue-700">
+                <span className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-3 py-1.5 text-[12px] font-medium text-muted-foreground">
                   <Home className="h-3.5 w-3.5" />
                   Wizyty domowe
                 </span>
               )}
               {midwife.office && (
-                <span className="inline-flex items-center gap-1.5 rounded-full bg-purple-50 px-3 py-1.5 text-[12px] font-medium text-purple-700">
+                <span className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-3 py-1.5 text-[12px] font-medium text-muted-foreground">
                   <Building2 className="h-3.5 w-3.5" />
                   Gabinet
-                </span>
-              )}
-              {midwife.match >= 90 && (
-                <span className="inline-flex items-center gap-1.5 rounded-full bg-primary/10 px-3 py-1.5 text-[12px] font-semibold text-primary">
-                  {midwife.match}% dopasowania
                 </span>
               )}
             </div>

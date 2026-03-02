@@ -15,7 +15,15 @@
       "Bash(bun run:*)",
       "Bash(npx next:*)",
       "WebFetch(domain:booksy.com)",
-      "Bash(grep:*)"
+      "Bash(grep:*)",
+      "WebFetch(domain:retool.com)",
+      "Bash(bun:*)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "WebFetch(domain:api.maptiler.com)",
+      "Bash(sips:*)",
+      "Bash(cp:*)",
+      "Bash(python3:*)"
     ]
   },
   "enableAllProjectMcpServers": true,

@@ -4,9 +4,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ProfileHero from "@/components/midwife-profile/ProfileHero";
 import ProfileTabs from "@/components/midwife-profile/ProfileTabs";
-import ProfileAvailability from "@/components/midwife-profile/ProfileAvailability";
 import ProfileContact from "@/components/midwife-profile/ProfileContact";
-import MobileBookingBar from "./MobileBookingBar";
 import BookingWrapper from "./BookingWrapper";
 
 export async function generateStaticParams() {
@@ -41,6 +39,7 @@ export default async function MidwifeProfilePage({
       services={profile.services}
       availability={profile.availability}
       midwifeName={profile.name}
+      midwifePhoto={profile.photo}
     >
       <div className="min-h-screen bg-background">
         <Navbar />
@@ -52,11 +51,22 @@ export default async function MidwifeProfilePage({
 
             {/* ── Right sidebar (spans all rows) ── */}
             <div className="mt-6 lg:row-span-2 lg:mt-12">
-              <div className="sticky top-[80px] space-y-6">
-                <ProfileAvailability availability={profile.availability} />
+              <div className="sticky top-[80px] space-y-4">
+                {/* Short bio */}
+                <div className="rounded-[18px] border border-border/60 bg-card p-5">
+                  <h3 className="text-[15px] font-semibold tracking-[-0.3px] text-foreground">
+                    O mnie
+                  </h3>
+                  <p className="mt-2 text-[14px] leading-relaxed text-muted-foreground">
+                    {profile.bio}
+                  </p>
+                </div>
+
                 <div className="hidden lg:block">
                   <ProfileContact
                     address={profile.address}
+                    lat={profile.lat}
+                    lng={profile.lng}
                     phone={profile.phone}
                     email={profile.email}
                     workingHours={profile.workingHours}
@@ -86,6 +96,8 @@ export default async function MidwifeProfilePage({
             </h2>
             <ProfileContact
               address={profile.address}
+              lat={profile.lat}
+              lng={profile.lng}
               phone={profile.phone}
               email={profile.email}
               workingHours={profile.workingHours}
@@ -94,7 +106,6 @@ export default async function MidwifeProfilePage({
         </main>
 
         <Footer />
-        <MobileBookingBar name={profile.name} price={profile.price} />
       </div>
     </BookingWrapper>
   );

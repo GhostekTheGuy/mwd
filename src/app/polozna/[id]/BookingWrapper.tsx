@@ -1,28 +1,31 @@
 "use client";
 
-import { BookingProvider } from "@/components/midwife-profile/BookingContext";
-import BookingDrawer from "@/components/midwife-profile/BookingDrawer";
+import { BookingModalProvider } from "@/components/midwife-profile/BookingModalContext";
+import BookingModal from "@/components/midwife-profile/BookingModal";
 import type { ServiceCategory, DaySlots } from "@/lib/data/midwives";
 
 export default function BookingWrapper({
   services,
   availability,
   midwifeName,
+  midwifePhoto,
   children,
 }: {
   services: ServiceCategory[];
   availability: DaySlots[];
   midwifeName: string;
+  midwifePhoto: string;
   children: React.ReactNode;
 }) {
   return (
-    <BookingProvider>
+    <BookingModalProvider>
       {children}
-      <BookingDrawer
+      <BookingModal
         services={services}
         availability={availability}
         midwifeName={midwifeName}
+        midwifePhoto={midwifePhoto}
       />
-    </BookingProvider>
+    </BookingModalProvider>
   );
 }

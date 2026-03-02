@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Inter_Tight, Lora, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 import SmoothScroll from "@/components/smooth-scroll";
+import { RegistrationModalProvider } from "@/components/registration/RegistrationModalContext";
+import RegistrationModal from "@/components/registration/RegistrationModal";
 
 const interTight = Inter_Tight({
   variable: "--font-sans",
@@ -46,7 +48,10 @@ export default function RootLayout({
       <body
         className={`${interTight.variable} ${lora.variable} ${ibmPlexMono.variable} antialiased`}
       >
-        <SmoothScroll>{children}</SmoothScroll>
+        <RegistrationModalProvider>
+          <SmoothScroll>{children}</SmoothScroll>
+          <RegistrationModal />
+        </RegistrationModalProvider>
       </body>
     </html>
   );

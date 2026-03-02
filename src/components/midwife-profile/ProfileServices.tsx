@@ -4,7 +4,7 @@ import { useState } from "react";
 import { ChevronDown, Clock, Calendar } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import { cn } from "@/lib/utils";
-import { useBooking } from "./BookingContext";
+import { useBookingModal } from "./BookingModalContext";
 import type { ServiceCategory } from "@/lib/data/midwives";
 
 export default function ProfileServices({
@@ -12,7 +12,7 @@ export default function ProfileServices({
 }: {
   services: ServiceCategory[];
 }) {
-  const { openBooking } = useBooking();
+  const { openBooking } = useBookingModal();
   const [openCategories, setOpenCategories] = useState<Set<string>>(
     new Set([services[0]?.name])
   );

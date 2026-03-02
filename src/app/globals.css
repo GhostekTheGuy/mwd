@@ -1,24 +1,25 @@
 @import "tailwindcss";
+@import "maplibre-gl/dist/maplibre-gl.css";
 
 :root {
-  --background: oklch(0.9860 0.0045 340);
+  --background: oklch(0.9650 0.0080 340);
   --foreground: oklch(0.1800 0.0100 340);
-  --card: oklch(0.9900 0.0035 340);
+  --card: oklch(0.9950 0.0045 340);
   --card-foreground: oklch(0.1800 0.0100 340);
-  --popover: oklch(0.9880 0.0040 340);
+  --popover: oklch(0.9950 0.0045 340);
   --popover-foreground: oklch(0.1800 0.0100 340);
   --primary: oklch(0.6598 0.2024 345.4433);
   --primary-foreground: oklch(0.9901 0.0074 332.1174);
-  --secondary: oklch(0.9619 0.0141 336.1429);
-  --secondary-foreground: oklch(0.1344 0 0);
-  --muted: oklch(0.9702 0.0030 340);
-  --muted-foreground: oklch(0.4386 0 0);
-  --accent: oklch(0.8703 0.0470 338.3176);
+  --secondary: oklch(0.9300 0.0160 338);
+  --secondary-foreground: oklch(0.1344 0.0030 340);
+  --muted: oklch(0.9400 0.0110 340);
+  --muted-foreground: oklch(0.4386 0.0070 340);
+  --accent: oklch(0.8500 0.0470 338.3176);
   --accent-foreground: oklch(0.6598 0.2024 345.4433);
   --destructive: oklch(0.7851 0.1025 340.6238);
   --destructive-foreground: oklch(1.0000 0 0);
-  --border: oklch(0.9619 0.0141 336.1429);
-  --input: oklch(0.9401 0 0);
+  --border: oklch(0.9100 0.0160 338);
+  --input: oklch(0.9200 0.0110 340);
   --ring: oklch(0 0 0);
   --chart-1: oklch(0.6598 0.2024 345.4433);
   --chart-2: oklch(0.7851 0.1025 340.6238);

@@ -55,6 +55,8 @@ export interface WorkingHour {
 
 export interface MidwifeProfile extends Midwife {
   address: string;
+  lat: number;
+  lng: number;
   phone: string;
   email: string;
   education: string[];
@@ -366,6 +368,8 @@ export const midwives: Midwife[] = [
 const profileExtensions: Record<number, Omit<MidwifeProfile, keyof Midwife>> = {
   1: {
     address: "ul. Mokotowska 27/3, 00-560 Warszawa",
+    lat: 52.2195,
+    lng: 21.0066,
     phone: "+48 512 345 678",
     email: "anna.kowalska@mymidwife.pl",
     education: [
@@ -567,6 +571,8 @@ const profileExtensions: Record<number, Omit<MidwifeProfile, keyof Midwife>> = {
 function generateDefaultProfile(m: Midwife): Omit<MidwifeProfile, keyof Midwife> {
   return {
     address: `ul. Przykładowa 10, ${m.city}`,
+    lat: 52.23 + Math.random() * 0.05,
+    lng: 21.0 + Math.random() * 0.05,
     phone: "+48 500 000 000",
     email: `${m.name.toLowerCase().replace(/ /g, ".").replace(/ą/g,"a").replace(/ę/g,"e").replace(/ó/g,"o").replace(/ś/g,"s").replace(/ł/g,"l").replace(/ż/g,"z").replace(/ź/g,"z").replace(/ć/g,"c").replace(/ń/g,"n")}@mymidwife.pl`,
     education: [

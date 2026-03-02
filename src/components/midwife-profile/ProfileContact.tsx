@@ -1,13 +1,22 @@
+"use client";
+
+import dynamic from "next/dynamic";
 import { Clock, MapPin, Phone, Mail } from "lucide-react";
 import type { WorkingHour } from "@/lib/data/midwives";
 
+const LocationMap = dynamic(() => import("./LocationMap"), { ssr: false });
+
 export default function ProfileContact({
   address,
+  lat,
+  lng,
   phone,
   email,
   workingHours,
 }: {
   address: string;
+  lat: number;
+  lng: number;
   phone: string;
   email: string;
   workingHours: WorkingHour[];
@@ -35,15 +44,14 @@ export default function ProfileContact({
         </div>
       </div>
 
-      {/* Map placeholder */}
+      {/* Map */}
       <div className="overflow-hidden rounded-[18px] border border-border/60">
-        <div className="flex h-[160px] items-center justify-center bg-muted/40">
-          <div className="text-center">
-            <MapPin className="mx-auto h-8 w-8 text-muted-foreground/50" />
-            <p className="mt-2 max-w-[200px] text-[13px] font-medium leading-snug text-muted-foreground">
-              {address}
-            </p>
-          </div>
+        <LocationMap lat={lat} lng={lng} />
+        <div className="flex items-center gap-2 bg-card px-4 py-3">
+          <MapPin className="h-4 w-4 shrink-0 text-primary" />
+          <p className="text-[13px] font-medium leading-snug text-muted-foreground">
+            {address}
+          </p>
         </div>
       </div>
 

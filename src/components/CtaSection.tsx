@@ -2,10 +2,13 @@
 
 import { HalftoneDots } from "@paper-design/shaders-react";
 import { InteractiveHoverButton } from "./InteractiveHoverButton";
+import { useRegistrationModal } from "./registration/RegistrationModalContext";
 
 const halftoneImage = "/stock/banner22.png";
 
 export default function CtaSection() {
+  const { openRegistration } = useRegistrationModal();
+
   return (
     <section className="w-full py-10 lg:py-16">
       <div className="mx-auto max-w-[1200px] px-[18px] lg:px-[120px]">
@@ -41,7 +44,7 @@ export default function CtaSection() {
               Zadbaj o siebie i swojego maluszka z MyMidwife
             </h2>
 
-            <InteractiveHoverButton className="mt-8 lg:mt-10">
+            <InteractiveHoverButton className="mt-8 lg:mt-10" onClick={openRegistration}>
               Zacznij teraz
             </InteractiveHoverButton>
           </div>
