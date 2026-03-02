@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect, useCallback } from "react";
 import { useSearchParams } from "next/navigation";
+import Link from "next/link";
 import {
   Search,
   ChevronDown,
@@ -24,353 +25,14 @@ import { motion, AnimatePresence, useInView } from "motion/react";
 import { BlurFade } from "./BlurFade";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
+import {
+  midwives,
+  specializationGroups,
+  type Midwife,
+} from "@/lib/data/midwives";
 
 /* ──────────────── DATA ──────────────── */
-
-interface Midwife {
-  id: number;
-  name: string;
-  photo: string;
-  match: number;
-  specializations: string[];
-  tags: string[];
-  bio: string;
-  nextDate: string;
-  price: number;
-  duration: number;
-  rating: number;
-  reviews: number;
-  city: string;
-  online: boolean;
-  homeVisit: boolean;
-  office: boolean;
-  stages: string[];
-}
-
-const midwives: Midwife[] = [
-  {
-    id: 1,
-    name: "Anna Kowalska",
-    photo: "/stock/1.png",
-    match: 99,
-    specializations: ["położnictwo", "laktacja"],
-    tags: [
-      "Karmienie piersią",
-      "Połóg",
-      "Ciąża",
-      "Masaż niemowląt",
-      "Wizyta patronażowa",
-    ],
-    bio: "Pomagam mamom odnaleźć pewność siebie w nowej roli. Specjalizuję się w laktacji i opiece połogowej w domowym zaciszu.",
-    nextDate: "Czw, 6 Mar, 10:00",
-    price: 189,
-    duration: 60,
-    rating: 4.9,
-    reviews: 127,
-    city: "Warszawa",
-    online: true,
-    homeVisit: true,
-    office: true,
-    stages: ["ciąża", "połóg", "laktacja"],
-  },
-  {
-    id: 2,
-    name: "Katarzyna Nowak",
-    photo: "/stock/2.png",
-    match: 97,
-    specializations: ["edukacja przedporodowa", "fizjoterapia"],
-    tags: [
-      "Przygotowanie do porodu",
-      "Ćwiczenia w ciąży",
-      "Oddychanie",
-      "Plan porodu",
-    ],
-    bio: "Prowadzę przez ciążę krok po kroku. Szkoła rodzenia, ćwiczenia i przygotowanie do porodu — wszystko w jednym miejscu.",
-    nextDate: "Pt, 7 Mar, 14:00",
-    price: 159,
-    duration: 50,
-    rating: 4.8,
-    reviews: 89,
-    city: "Kraków",
-    online: true,
-    homeVisit: false,
-    office: true,
-    stages: ["planowanie", "ciąża"],
-  },
-  {
-    id: 3,
-    name: "Magdalena Wiśniewska",
-    photo: "/stock/3.png",
-    match: 95,
-    specializations: ["neonatologia", "laktacja"],
-    tags: [
-      "Opieka nad noworodkiem",
-      "Kąpiel noworodka",
-      "Kolki",
-      "Sen niemowląt",
-      "Laktacja",
-    ],
-    bio: "Towarzyszę rodzicom w pierwszych tygodniach z maluszkiem. Pomagam zrozumieć potrzeby noworodka i budować więź.",
-    nextDate: "Pon, 10 Mar, 09:00",
-    price: 199,
-    duration: 60,
-    rating: 4.9,
-    reviews: 203,
-    city: "Wrocław",
-    online: true,
-    homeVisit: true,
-    office: false,
-    stages: ["połóg", "laktacja"],
-  },
-  {
-    id: 4,
-    name: "Joanna Kamińska",
-    photo: "/stock/1.png",
-    match: 93,
-    specializations: ["USG", "diagnostyka prenatalna"],
-    tags: ["USG ciążowe", "Badania prenatalne", "Monitorowanie ciąży", "KTG"],
-    bio: "Specjalizuję się w diagnostyce prenatalnej. Każde badanie to dla mnie okazja, by uspokoić i wyjaśnić.",
-    nextDate: "Wt, 11 Mar, 11:00",
-    price: 249,
-    duration: 45,
-    rating: 5.0,
-    reviews: 64,
-    city: "Poznań",
-    online: false,
-    homeVisit: false,
-    office: true,
-    stages: ["planowanie", "ciąża"],
-  },
-  {
-    id: 5,
-    name: "Aleksandra Zielińska",
-    photo: "/stock/2.png",
-    match: 91,
-    specializations: ["psychologia perinantalna", "doula"],
-    tags: [
-      "Wsparcie emocjonalne",
-      "Strata ciąży",
-      "Depresja poporodowa",
-      "Lęki w ciąży",
-    ],
-    bio: "Wspieram kobiety emocjonalnie na każdym etapie macierzyństwa. Bezpieczna przestrzeń do rozmowy i zrozumienia.",
-    nextDate: "Śr, 12 Mar, 16:00",
-    price: 179,
-    duration: 50,
-    rating: 4.7,
-    reviews: 156,
-    city: "Gdańsk",
-    online: true,
-    homeVisit: true,
-    office: true,
-    stages: ["planowanie", "ciąża", "połóg"],
-  },
-  {
-    id: 6,
-    name: "Natalia Dąbrowska",
-    photo: "/stock/3.png",
-    match: 89,
-    specializations: ["położnictwo", "edukacja zdrowotna"],
-    tags: [
-      "Dieta w ciąży",
-      "Suplementacja",
-      "Ćwiczenia dna miednicy",
-      "Powrót do formy",
-    ],
-    bio: "Łączę wiedzę medyczną z praktycznym podejściem. Pomagam zadbać o siebie w ciąży i po porodzie.",
-    nextDate: "Czw, 13 Mar, 08:00",
-    price: 169,
-    duration: 50,
-    rating: 4.8,
-    reviews: 91,
-    city: "Łódź",
-    online: true,
-    homeVisit: false,
-    office: true,
-    stages: ["ciąża", "połóg", "laktacja"],
-  },
-  {
-    id: 7,
-    name: "Paulina Majewska",
-    photo: "/stock/2.png",
-    match: 96,
-    specializations: ["laktacja", "opieka połogowa"],
-    tags: [
-      "Karmienie piersią",
-      "Odciąganie pokarmu",
-      "Zapalenie piersi",
-      "Dokarmianie",
-    ],
-    bio: "Konsultantka laktacyjna IBCLC. Pomagam rozwiązywać trudności z karmieniem — cierpliwie i bez oceniania.",
-    nextDate: "Pt, 7 Mar, 11:00",
-    price: 209,
-    duration: 60,
-    rating: 5.0,
-    reviews: 184,
-    city: "Warszawa",
-    online: true,
-    homeVisit: true,
-    office: true,
-    stages: ["połóg", "laktacja"],
-  },
-  {
-    id: 8,
-    name: "Marta Lewandowska",
-    photo: "/stock/3.png",
-    match: 94,
-    specializations: ["edukacja przedporodowa", "położnictwo"],
-    tags: [
-      "Szkoła rodzenia",
-      "Plan porodu",
-      "Oddychanie",
-      "Techniki relaksacji",
-      "Poród naturalny",
-    ],
-    bio: "Prowadzę kameralne szkoły rodzenia w centrum Warszawy. Wierzę, że świadomy poród zaczyna się od wiedzy.",
-    nextDate: "Sob, 8 Mar, 10:00",
-    price: 149,
-    duration: 90,
-    rating: 4.9,
-    reviews: 112,
-    city: "Warszawa",
-    online: true,
-    homeVisit: false,
-    office: true,
-    stages: ["planowanie", "ciąża"],
-  },
-  {
-    id: 9,
-    name: "Izabela Wójcik",
-    photo: "/stock/1.png",
-    match: 92,
-    specializations: ["neonatologia", "położnictwo"],
-    tags: [
-      "Wizyta patronażowa",
-      "Opieka nad noworodkiem",
-      "Pielęgnacja pępka",
-      "Żółtaczka",
-      "Szczepienia",
-    ],
-    bio: "15 lat doświadczenia w neonatologii. Pierwsza wizyta patronażowa to moja specjalność — spokojnie i profesjonalnie.",
-    nextDate: "Pon, 10 Mar, 08:00",
-    price: 199,
-    duration: 60,
-    rating: 4.8,
-    reviews: 237,
-    city: "Warszawa",
-    online: false,
-    homeVisit: true,
-    office: false,
-    stages: ["połóg"],
-  },
-  {
-    id: 10,
-    name: "Agnieszka Szymańska",
-    photo: "/stock/2.png",
-    match: 90,
-    specializations: ["USG", "diagnostyka prenatalna"],
-    tags: [
-      "USG ciążowe",
-      "USG 3D/4D",
-      "Badania prenatalne",
-      "KTG",
-      "Monitorowanie ciąży",
-    ],
-    bio: "Wykonuję badania USG z pasją i uwagą. Każda wizyta to czas dla Ciebie — bez pośpiechu, z dokładnym omówieniem.",
-    nextDate: "Wt, 11 Mar, 09:30",
-    price: 259,
-    duration: 45,
-    rating: 5.0,
-    reviews: 98,
-    city: "Warszawa",
-    online: false,
-    homeVisit: false,
-    office: true,
-    stages: ["ciąża"],
-  },
-  {
-    id: 11,
-    name: "Dorota Kaczmarek",
-    photo: "/stock/3.png",
-    match: 88,
-    specializations: ["psychologia perinantalna", "położnictwo"],
-    tags: [
-      "Depresja poporodowa",
-      "Lęk przed porodem",
-      "Wsparcie emocjonalne",
-      "Trauma porodowa",
-    ],
-    bio: "Łączę opiekę położniczą ze wsparciem psychologicznym. Bo macierzyństwo to nie tylko ciało — to też emocje.",
-    nextDate: "Śr, 12 Mar, 13:00",
-    price: 189,
-    duration: 50,
-    rating: 4.7,
-    reviews: 143,
-    city: "Warszawa",
-    online: true,
-    homeVisit: true,
-    office: true,
-    stages: ["ciąża", "połóg"],
-  },
-  {
-    id: 12,
-    name: "Weronika Grabowska",
-    photo: "/stock/1.png",
-    match: 87,
-    specializations: ["fizjoterapia", "edukacja zdrowotna"],
-    tags: [
-      "Ćwiczenia w ciąży",
-      "Dno miednicy",
-      "Rozejście mięśni",
-      "Powrót do formy",
-      "Joga prenatalna",
-    ],
-    bio: "Fizjoterapeutka uroginekologiczna. Pomagam ciału w ciąży i po porodzie — od dna miednicy po rozejście kresy białej.",
-    nextDate: "Czw, 13 Mar, 15:00",
-    price: 179,
-    duration: 50,
-    rating: 4.9,
-    reviews: 76,
-    city: "Warszawa",
-    online: true,
-    homeVisit: false,
-    office: true,
-    stages: ["ciąża", "połóg"],
-  },
-];
-
-const specializationGroups = [
-  {
-    label: "OPIEKA POŁOŻNICZA",
-    items: [
-      "położnictwo",
-      "laktacja",
-      "opieka połogowa",
-      "wizyta patronażowa",
-    ],
-  },
-  {
-    label: "EDUKACJA I PRZYGOTOWANIE",
-    items: [
-      "edukacja przedporodowa",
-      "szkoła rodzenia",
-      "przygotowanie do porodu",
-    ],
-  },
-  {
-    label: "DIAGNOSTYKA",
-    items: ["USG", "diagnostyka prenatalna", "KTG"],
-  },
-  {
-    label: "WSPARCIE DODATKOWE",
-    items: [
-      "fizjoterapia",
-      "psychologia perinantalna",
-      "doula",
-      "dietetyka ciążowa",
-    ],
-  },
-];
+/* midwives & specializationGroups imported from @/lib/data/midwives */
 
 const stages = [
   {
@@ -1639,133 +1301,137 @@ function MidwifeCard({
         duration: 0.5,
         ease: [0.25, 0.1, 0.25, 1],
       }}
-      className="group/card relative flex flex-col rounded-[22px] border border-border bg-card p-5 transition-all duration-500 hover:border-primary/20 hover:shadow-[0_8px_40px_-8px_rgba(0,0,0,0.06)]"
     >
-      {/* Heart */}
-      <button
-        onClick={() => setLiked(!liked)}
-        className="absolute right-4 top-4 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-muted/60 transition-all duration-300 hover:bg-secondary"
-        aria-label="Polub"
+      <Link
+        href={`/polozna/${midwife.id}`}
+        className="group/card relative flex flex-col rounded-[22px] border border-border bg-card p-5 transition-all duration-500 hover:border-primary/20 hover:shadow-[0_8px_40px_-8px_rgba(0,0,0,0.06)]"
       >
-        <Heart
-          size={15}
-          className={`transition-all duration-300 ${liked ? "fill-primary text-primary" : "text-muted-foreground"}`}
-          strokeWidth={1.8}
-        />
-      </button>
+        {/* Heart */}
+        <button
+          onClick={(e) => { e.preventDefault(); e.stopPropagation(); setLiked(!liked); }}
+          className="absolute right-4 top-4 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-muted/60 transition-all duration-300 hover:bg-secondary"
+          aria-label="Polub"
+        >
+          <Heart
+            size={15}
+            className={`transition-all duration-300 ${liked ? "fill-primary text-primary" : "text-muted-foreground"}`}
+            strokeWidth={1.8}
+          />
+        </button>
 
-      {/* Profile Header */}
-      <div className="flex items-start gap-3.5">
-        <div className="relative flex-shrink-0">
-          <div className="h-[60px] w-[60px] overflow-hidden rounded-full border-[2.5px] border-accent">
-            <img
-              src={midwife.photo}
-              alt={midwife.name}
-              className="h-full w-full object-cover"
-            />
-          </div>
-          {/* Match Badge */}
-          <div className="absolute -right-1 -top-1 flex h-7 min-w-7 items-center justify-center rounded-full bg-primary px-1.5 text-[11px] font-bold text-white shadow-sm">
-            {midwife.match}%
-          </div>
-        </div>
-
-        <div className="min-w-0 flex-1 pt-0.5">
-          <h3 className="truncate text-[17px] font-semibold tracking-[-0.4px] text-foreground">
-            {midwife.name}
-          </h3>
-          <p className="mt-0.5 text-[13px] leading-[1.3] text-muted-foreground">
-            {midwife.specializations.join(" · ")}
-          </p>
-          <div className="mt-1.5 flex items-center gap-3">
-            <div className="flex items-center gap-1">
-              <Star
-                size={12}
-                className="fill-amber-400 text-amber-400"
+        {/* Profile Header */}
+        <div className="flex items-start gap-3.5">
+          <div className="relative flex-shrink-0">
+            <div className="h-[60px] w-[60px] overflow-hidden rounded-full border-[2.5px] border-accent">
+              <img
+                src={midwife.photo}
+                alt={midwife.name}
+                className="h-full w-full object-cover"
               />
-              <span className="text-[12px] font-medium text-foreground">
-                {midwife.rating}
-              </span>
-              <span className="text-[12px] text-muted-foreground">
-                ({midwife.reviews})
-              </span>
             </div>
-            <div className="flex items-center gap-1 text-[12px] text-muted-foreground">
-              <MapPin size={11} strokeWidth={1.8} />
-              {midwife.city}
+            {/* Match Badge */}
+            <div className="absolute -right-1 -top-1 flex h-7 min-w-7 items-center justify-center rounded-full bg-primary px-1.5 text-[11px] font-bold text-white shadow-sm">
+              {midwife.match}%
+            </div>
+          </div>
+
+          <div className="min-w-0 flex-1 pt-0.5">
+            <h3 className="truncate text-[17px] font-semibold tracking-[-0.4px] text-foreground transition-colors group-hover/card:text-primary">
+              {midwife.name}
+            </h3>
+            <p className="mt-0.5 text-[13px] leading-[1.3] text-muted-foreground">
+              {midwife.specializations.join(" · ")}
+            </p>
+            <div className="mt-1.5 flex items-center gap-3">
+              <div className="flex items-center gap-1">
+                <Star
+                  size={12}
+                  className="fill-amber-400 text-amber-400"
+                />
+                <span className="text-[12px] font-medium text-foreground">
+                  {midwife.rating}
+                </span>
+                <span className="text-[12px] text-muted-foreground">
+                  ({midwife.reviews})
+                </span>
+              </div>
+              <div className="flex items-center gap-1 text-[12px] text-muted-foreground">
+                <MapPin size={11} strokeWidth={1.8} />
+                {midwife.city}
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      {/* Tags */}
-      <div className="mt-4 flex flex-wrap gap-1.5">
-        {midwife.tags.slice(0, 4).map((tag) => (
-          <span
-            key={tag}
-            className="rounded-[8px] border border-border bg-muted/50 px-2.5 py-1 text-[12px] font-medium text-muted-foreground transition-colors duration-200 group-hover/card:border-primary/10 group-hover/card:bg-primary/[0.03]"
-          >
-            {tag}
-          </span>
-        ))}
-        {midwife.tags.length > 4 && (
-          <span className="rounded-[8px] px-2 py-1 text-[12px] text-muted-foreground">
-            +{midwife.tags.length - 4}
-          </span>
-        )}
-      </div>
-
-      {/* Bio */}
-      <p className="mt-3.5 line-clamp-3 flex-1 text-[13px] leading-[1.6] text-muted-foreground">
-        {midwife.bio}
-      </p>
-
-      {/* Visit modes */}
-      <div className="mt-3.5 flex items-center gap-2">
-        {midwife.online && (
-          <span className="flex items-center gap-1 text-[11px] text-muted-foreground">
-            <Video size={11} strokeWidth={1.8} />
-            Online
-          </span>
-        )}
-        {midwife.homeVisit && (
-          <span className="flex items-center gap-1 text-[11px] text-muted-foreground">
-            <Home size={11} strokeWidth={1.8} />
-            W domu
-          </span>
-        )}
-        {midwife.office && (
-          <span className="flex items-center gap-1 text-[11px] text-muted-foreground">
-            <Building2 size={11} strokeWidth={1.8} />
-            Gabinet
-          </span>
-        )}
-      </div>
-
-      {/* Divider */}
-      <div className="my-4 h-px bg-border/60" />
-
-      {/* Next available + CTA */}
-      <div className="flex items-end justify-between">
-        <div>
-          <p className="text-[11px] text-muted-foreground">
-            najbliższy termin:
-          </p>
-          <p className="mt-0.5 text-[13px] font-semibold tracking-[-0.2px] text-foreground">
-            {midwife.nextDate}
-          </p>
+        {/* Tags */}
+        <div className="mt-4 flex flex-wrap gap-1.5">
+          {midwife.tags.slice(0, 4).map((tag) => (
+            <span
+              key={tag}
+              className="rounded-[8px] border border-border bg-muted/50 px-2.5 py-1 text-[12px] font-medium text-muted-foreground transition-colors duration-200 group-hover/card:border-primary/10 group-hover/card:bg-primary/[0.03]"
+            >
+              {tag}
+            </span>
+          ))}
+          {midwife.tags.length > 4 && (
+            <span className="rounded-[8px] px-2 py-1 text-[12px] text-muted-foreground">
+              +{midwife.tags.length - 4}
+            </span>
+          )}
         </div>
-      </div>
 
-      {/* CTA Button */}
-      <button className="mt-4 flex w-full items-center justify-between rounded-[14px] bg-primary px-5 py-3.5 transition-all duration-500 hover:bg-primary/90">
-        <span className="text-[14px] font-medium text-white">
-          Umów wizytę
-        </span>
-        <span className="text-[13px] font-medium text-white/80">
-          {midwife.price} PLN / {midwife.duration}min
-        </span>
-      </button>
+        {/* Bio */}
+        <p className="mt-3.5 line-clamp-3 flex-1 text-[13px] leading-[1.6] text-muted-foreground">
+          {midwife.bio}
+        </p>
+
+        {/* Visit modes */}
+        <div className="mt-3.5 flex items-center gap-2">
+          {midwife.online && (
+            <span className="flex items-center gap-1 text-[11px] text-muted-foreground">
+              <Video size={11} strokeWidth={1.8} />
+              Online
+            </span>
+          )}
+          {midwife.homeVisit && (
+            <span className="flex items-center gap-1 text-[11px] text-muted-foreground">
+              <Home size={11} strokeWidth={1.8} />
+              W domu
+            </span>
+          )}
+          {midwife.office && (
+            <span className="flex items-center gap-1 text-[11px] text-muted-foreground">
+              <Building2 size={11} strokeWidth={1.8} />
+              Gabinet
+            </span>
+          )}
+        </div>
+
+        {/* Divider */}
+        <div className="my-4 h-px bg-border/60" />
+
+        {/* Next available + CTA */}
+        <div className="flex items-end justify-between">
+          <div>
+            <p className="text-[11px] text-muted-foreground">
+              najbliższy termin:
+            </p>
+            <p className="mt-0.5 text-[13px] font-semibold tracking-[-0.2px] text-foreground">
+              {midwife.nextDate}
+            </p>
+          </div>
+        </div>
+
+        {/* CTA Button */}
+        <div className="mt-4 flex w-full items-center justify-between rounded-[14px] bg-primary px-5 py-3.5 transition-all duration-500 hover:bg-primary/90">
+          <span className="text-[14px] font-medium text-white">
+            Umów wizytę
+          </span>
+          <span className="text-[13px] font-medium text-white/80">
+            {midwife.price} PLN / {midwife.duration}min
+          </span>
+        </div>
+      </Link>
     </motion.div>
   );
 }

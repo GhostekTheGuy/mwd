@@ -13,7 +13,9 @@
       "Bash(bun add:*)",
       "Bash(bun build:*)",
       "Bash(bun run:*)",
-      "Bash(npx next:*)"
+      "Bash(npx next:*)",
+      "WebFetch(domain:booksy.com)",
+      "Bash(grep:*)"
     ]
   },
   "enableAllProjectMcpServers": true,
